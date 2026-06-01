@@ -20,7 +20,7 @@ Build a web application that:
 
 | Service | URL |
 |---------|-----|
-| Frontend | https://g-scores-frontend-zeta.vercel.app |
+| Frontend | https://g-score.vercel.app |
 | Backend API | https://gscores.up.railway.app |
 
 ## Overview
