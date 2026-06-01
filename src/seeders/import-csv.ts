@@ -1,9 +1,9 @@
-import fs from 'fs';
-import { parse } from 'csv-parse';
-import { connectDatabase, disconnectDatabase } from '../config/database.js';
-import { env } from '../config/env.js';
-import { StudentScore } from '../models/StudentScore.js';
-import { csvRowToDocument } from '../utils/csv-row.js';
+import fs from "fs";
+import { parse } from "csv-parse";
+import { connectDatabase, disconnectDatabase } from "../config/database.js";
+import { env } from "../config/env.js";
+import { StudentScore } from "../models/StudentScore.js";
+import { csvRowToDocument } from "../utils/csv-row.js";
 
 async function flushBatch(
   batch: Array<{ insertOne: { document: Record<string, unknown> } }>,
@@ -23,7 +23,7 @@ async function run() {
 
   if (env.seedDropCollection) {
     await StudentScore.collection.drop().catch(() => undefined);
-    console.log('Dropped collection student_scores');
+    console.log("Dropped collection student_scores");
   }
 
   const batch: Array<{ insertOne: { document: Record<string, unknown> } }> = [];
@@ -63,7 +63,9 @@ async function run() {
         }
       }
       if (line % 100_000 === 0) {
-        console.log(`Processed ${line.toLocaleString()} rows, inserted ~${inserted.toLocaleString()}`);
+        console.log(
+          `Processed ${line.toLocaleString()} rows, inserted ~${inserted.toLocaleString()}`,
+        );
       }
     }
   }
@@ -71,8 +73,13 @@ async function run() {
   inserted += await flushBatch(batch);
 
   const total = await StudentScore.countDocuments();
-  console.log('Import finished');
-  console.log({ csvLines: line, insertedApprox: inserted, skipped, totalInDb: total });
+  console.log("Import finished");
+  console.log({
+    csvLines: line,
+    insertedApprox: inserted,
+    skipped,
+    totalInDb: total,
+  });
 
   await disconnectDatabase();
 }
