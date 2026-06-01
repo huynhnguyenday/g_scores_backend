@@ -1,0 +1,4 @@
+node_modules/
+dist/
+.env
+diem_thi_thpt_2024.csv
